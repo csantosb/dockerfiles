@@ -1,8 +1,16 @@
+#  Dockerfile -- for a nikola run-time environment
+#  Copyright (C) 2020  Cayetano Santos
+#
+#  License: GPL-3.0+
+
 FROM alpine
 
-LABEL MAINTAINER csantosb <csantosb autistici org>
+MAINTAINER  csantosb <csantosb autistici org>
 
-RUN apk --update add doxygen graphviz && \
-    rm -rf /var/cache/apk/*
+RUN apk update && apk upgrade
+
+RUN apk add doxygen graphviz
+
+RUN rm -rf /var/cache/apk/*
 
 CMD ["doxygen", "-v"]
