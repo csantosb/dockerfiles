@@ -54,6 +54,8 @@ RUN apk add --no-cache                                                  \
 
 RUN apk add ca-certificates emacs-nox git
 
+RUN emacs -nw -q --batch --eval "(progn (require 'package)(add-to-list 'package-archives '(\"melpa\" . \"https://melpa.org/packages/\") t)(package-initialize)(package-refresh-contents)(package-install 'htmlize))"
+
 RUN nikola plugin -i orgmode
 
 RUN rm -rf /var/cache/apk/*
