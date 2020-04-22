@@ -52,7 +52,7 @@ RUN apk add --no-cache                                                  \
 	-o \( -type f -a -name '*.pyc' -o -name '*.pyo' \)              \
 	-exec rm -rf '{}' +
 
-RUN apk add ca-certificates emacs git
+RUN apk add ca-certificates emacs-nox git
 
 RUN nikola plugin -i orgmode
 
