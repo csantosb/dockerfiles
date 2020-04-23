@@ -11,7 +11,7 @@ ADD vivado19.2_src.tar.gz /tmp
 
 RUN pacman --noconfirm -Syu
 
-RUN pacman --noconfirm -S git ncdu make sudo diffutils fakeroot binutils
+RUN pacman --noconfirm -S gcc git ncdu make binutils sudo diffutils fakeroot
 
 # makepkg cannot (and should not) be run as root:
 RUN useradd -m notroot
@@ -49,7 +49,7 @@ RUN /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/s
 
 USER root
 
-RUN pacman --noconfirm -Rns sudo diffutils fakeroot binutils
+RUN pacman --noconfirm -Rns sudo diffutils fakeroot
 
 RUN pacman --noconfirm -Scc
 
