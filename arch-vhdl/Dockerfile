@@ -7,6 +7,8 @@ FROM        archlinux
 
 MAINTAINER  csantosb <csantosb autistici org>
 
+ADD vivado19.2_src.tar.gz /tmp
+
 RUN pacman --noconfirm -Syu
 
 RUN pacman --noconfirm -S git ncdu make sudo diffutils fakeroot binutils
@@ -42,6 +44,8 @@ RUN git clone https://aur.archlinux.org/ghdl-gcc-git.git && \
     cd ghdl-gcc-git &&\
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/ghdl-gcc-git
+
+RUN /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /root/CompiledLibraries/Vivado
 
 USER root
 
