@@ -74,4 +74,4 @@ RUN rm -rf /var/cache/pacman/pkg
 
 USER notroot
 
-WORKDIR /home/nonroot
+WORKDIR /home/notroot
