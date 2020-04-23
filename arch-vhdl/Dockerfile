@@ -47,7 +47,10 @@ RUN git clone https://aur.archlinux.org/ghdl-gcc-git.git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/ghdl-gcc-git
 
-RUN /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /root/CompiledLibraries/Vivado
+# Compile xilinx vivado libraries
+
+RUN /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /home/notroot/CompiledLibraries/Vivado --ghdl /usr/bin
+
 
 USER root
 
