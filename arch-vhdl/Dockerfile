@@ -13,6 +13,8 @@ RUN pacman --noconfirm -Syu
 
 RUN pacman --noconfirm -S gcc git ncdu make binutils sudo diffutils fakeroot
 
+RUN pacman --noconfirm -S doxygen graphviz
+
 # makepkg cannot (and should not) be run as root:
 RUN useradd -m notroot
 
