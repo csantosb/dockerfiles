@@ -5,9 +5,9 @@ This dockerfile builds a custom Nikola build environment based on a base
 
  - Strongly based on https://gitlab.com/paddy-hack/nikola and https://github.com/abellmann/nikola-orgmode
 
- - Allows using https://orgmode.org/ as markdown language
+ - Allows using [[https://orgmode.org/][orgmode]] as markdown language
 
- - Used [[https://orgmode.org/][here]]
+ - Used [[https://gitlab.com/csantosb-blogs/blog-tech][here]]
 
 Get it from [[https://hub.docker.com/r/csantosb/alpine-nikola][docker hub]].
 
