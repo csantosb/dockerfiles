@@ -11,6 +11,8 @@ This dockerfile builds a custom VHDL testing environment based on a base
    useful when needing to install aditional ancillary packages within the
    container
 
+Get it from [[https://hub.docker.com/r/csantosb/arch-vhdl][docker hub]].
+
 * License
 
 This program is free software; you can redistribute it and/or modify
