@@ -1,6 +1,6 @@
 #+TITLE: Dockerfiles
 
-This ...
+These are the dockerfiles I need to use. Refer to each directory readme file for details.
 
 * License
 

@@ -1,6 +1,9 @@
-#+TITLE: Dockerfiles
+#+TITLE: Alpine Doxygen Dockerfile
 
-This ...
+This dockerfile builds a custom Doxygen build environment based on a base
+[[https://hub.docker.com/_/alpine][alpine image]].
+
+Get it from [[https://hub.docker.com/r/csantosb/alpine-doxygen][docker hub]].
 
 * License
 
