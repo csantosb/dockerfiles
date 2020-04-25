@@ -3,6 +3,8 @@
 These are the dockerfiles corresponding to the images I need to use. Refer to
 each directory readme file for details.
 
+They are all auto build and available at https://hub.docker.com/repositories.
+
 * License
 
 This program is free software; you can redistribute it and/or modify
