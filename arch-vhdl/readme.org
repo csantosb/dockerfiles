@@ -3,13 +3,15 @@
 This dockerfile builds a custom VHDL testing environment based on a base
 [[https://hub.docker.com/_/archlinux/][archlinux image]].
 
- - It includes latest [[https://aur.archlinux.org/packages/ghdl-gcc-git/][ghdl-gcc-git]] and [[https://aur.archlinux.org/packages/python-cocotb-git/][python-cocotb-git]] packages, including pre
-   compiled Vivado 2019.2 libraries
+ - It includes latest [[https://aur.archlinux.org/packages/ghdl-gcc-git/][ghdl-gcc-git]] and [[https://aur.archlinux.org/packages/python-cocotb-git/][python-cocotb-git]] packages. It adds pre
+   compiled Vivado 2019.2 libraries too
 
  - It includes a (sudo powered) notroot user to work as once the image is
-   created. This is first, necessary to to install from the [[https://aur.archlinux.org/][AUR]], and secondly
-   useful when needing to install aditional ancillary packages within the
-   container
+   created, which is necessary to install packages from the [[https://aur.archlinux.org/][AUR]]. Sudo access
+   might be useful in case of needing to install aditional ancillary
+   packages within the container
+
+ - Used [[https://gitlab.com/ip-vhdl][here]] along with [[https://docs.gitlab.com/ee/ci/][gitlbab-ci]]
 
 Get it from [[https://hub.docker.com/r/csantosb/arch-vhdl][docker hub]].
 

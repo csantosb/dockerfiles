@@ -3,6 +3,8 @@
 This dockerfile builds a custom Doxygen build environment based on a base
 [[https://hub.docker.com/_/alpine][alpine image]].
 
+ - Used [[https://gitlab.com/ip-vhdl][here]] along with [[https://docs.gitlab.com/ee/ci/][gitlbab-ci]]
+
 Get it from [[https://hub.docker.com/r/csantosb/alpine-doxygen][docker hub]].
 
 * License
