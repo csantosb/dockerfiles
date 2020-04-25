@@ -15,7 +15,7 @@ ADD vivado19.2_src.tar.gz /tmp
 RUN pacman --noconfirm -Syu
 
 # add necessary packages
-RUN pacman --noconfirm -S doxygen graphviz gcc git make binutils sudo diffutils fakeroot
+RUN pacman --noconfirm -S gcc git make binutils sudo diffutils fakeroot
 
 # makepkg cannot (and should not) be run as root, so we need to create a non root user here
 RUN useradd -m notroot
