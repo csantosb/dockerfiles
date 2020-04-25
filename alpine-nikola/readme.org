@@ -3,7 +3,7 @@
 This dockerfile builds a custom Nikola build environment based on a base
 [[https://hub.docker.com/_/alpine][alpine image]].
 
- - Strongly based on https://gitlab.com/paddy-hack/nikola and https://github.com/abellmann/nikola-orgmode
+ - Strongly based on [[https://gitlab.com/paddy-hack/nikola][paddy-hack]] and [[https://github.com/abellmann/nikola-orgmode][abellmann]] files
 
  - Allows using [[https://orgmode.org/][orgmode]] as markdown language
 
