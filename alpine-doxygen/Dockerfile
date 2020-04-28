@@ -9,7 +9,7 @@ MAINTAINER  csantosb <csantosb autistici org>
 
 RUN apk update && apk upgrade
 
-RUN apk add doxygen graphviz
+RUN apk add doxygen graphviz emacs-nox
 
 RUN rm -rf /var/cache/apk/*
 
