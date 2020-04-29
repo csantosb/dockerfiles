@@ -47,13 +47,11 @@ RUN git clone https://gitlab.com/aur-packages/python-cocotb-git.git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/python-cocotb-git
 
-# Install latest ghdl-gcc-git. Here I need to force install with pacman as the
-# --install flags makes the makepkg line break for some reason
+# Install latest ghdl-gcc-git
 
 RUN git clone https://aur.archlinux.org/ghdl-gcc-git.git && \
     cd ghdl-gcc-git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
-    sudo pacman --noconfirm -U ghdl-gcc-git-*.tar.xz  && \
     rm -rf /tmp/ghdl-gcc-git
 
 # Compile xilinx vivado libraries
