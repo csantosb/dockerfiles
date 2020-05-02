@@ -54,13 +54,22 @@ RUN git clone https://aur.archlinux.org/ghdl-gcc-git.git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/ghdl-gcc-git
 
+USER root
+
 # Compile xilinx vivado libraries
 
-RUN /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /home/notroot/CompiledLibraries/Vivado --ghdl /usr/bin
+RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
+    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin
+
+# Create group ghdl, and add notroot user
+# Libraries have write access to members of the group
+
+RUN groupadd ghdl && \
+    gpasswd -a notroot ghdl && \
+    chown -R root:ghdl /opt/Xilinx/CompiledLibraries && \
+    chmod -R g+w /opt/Xilinx/CompiledLibraries
 
 # Cleanup things as root to reduce image size
-
-USER root
 
 RUN pacman --noconfirm -Rns diffutils fakeroot
 
