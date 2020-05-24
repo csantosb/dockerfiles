@@ -71,7 +71,7 @@ RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
 # Compile osvvm libraries
 
 RUN mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
-    /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm
+    /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm --ghdl /usr/bin
 
 # Create group ghdl, and add notroot user
 
