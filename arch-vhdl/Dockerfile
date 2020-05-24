@@ -42,14 +42,14 @@ WORKDIR /tmp
 
 # Install latest python-cocotb-git
 
-RUN git clone https://gitlab.com/aur-packages/python-cocotb-git.git && \
+RUN git clone --depth=1 https://gitlab.com/aur-packages/python-cocotb-git.git && \
     cd python-cocotb-git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/python-cocotb-git
 
 # Install latest ghdl-gcc-git
 
-RUN git clone https://aur.archlinux.org/ghdl-gcc-git.git && \
+RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
     cd ghdl-gcc-git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/ghdl-gcc-git
