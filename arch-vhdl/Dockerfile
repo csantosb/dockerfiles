@@ -54,14 +54,14 @@ RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/ghdl-gcc-git
 
+USER root
+
 # Get OSVVM-2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
     git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm && \
     cd /opt/HDL/osvvm/osvvm && \
     git checkout 2020.05
-
-USER root
 
 # Compile xilinx vivado libraries
 
