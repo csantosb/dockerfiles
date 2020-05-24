@@ -54,12 +54,24 @@ RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     rm -rf /tmp/ghdl-gcc-git
 
+# Get OSVVM-2020.05
+
+RUN mkdir -p /opt/HDL/osvvm/osvvm && \
+    git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm && \
+    cd /opt/HDL/osvvm/osvvm && \
+    git checkout 2020.05
+
 USER root
 
 # Compile xilinx vivado libraries
 
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
     /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin
+
+# Compile osvvm libraries
+
+RUN mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
+    /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm
 
 # Create group ghdl, and add notroot user
 # Libraries have write access to members of the group
@@ -68,6 +80,11 @@ RUN groupadd ghdl && \
     gpasswd -a notroot ghdl && \
     chown -R root:ghdl /opt/Xilinx/CompiledLibraries && \
     chmod -R g+w /opt/Xilinx/CompiledLibraries
+
+# Osvvm libraries have write access to members of the group
+
+RUN chown -R root:ghdl /opt/HDL/osvvm && \
+    chmod -R g+w /opt/HDL/osvvm
 
 # Cleanup things as root to reduce image size
 
