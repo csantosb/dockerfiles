@@ -74,11 +74,13 @@ RUN mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
     /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm
 
 # Create group ghdl, and add notroot user
-# Libraries have write access to members of the group
 
 RUN groupadd ghdl && \
-    gpasswd -a notroot ghdl && \
-    chown -R root:ghdl /opt/Xilinx/CompiledLibraries && \
+    gpasswd -a notroot ghdl
+
+# Xilinx libraries have write access to members of the group
+
+RUN chown -R root:ghdl /opt/Xilinx/CompiledLibraries && \
     chmod -R g+w /opt/Xilinx/CompiledLibraries
 
 # Osvvm libraries have write access to members of the group
