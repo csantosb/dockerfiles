@@ -75,7 +75,8 @@ RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
     git clone --recursive  https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP && \
     cd /tmp && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
-    ./eda-common/ghdl/vendors/runme.sh && \
+    cd /tmp/eda-common/ghdl/vendors && \
+    ./runme.sh && \
     rm -rf eda-common
 
 # Compile xilinx vivado libraries
