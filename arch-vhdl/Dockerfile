@@ -63,9 +63,7 @@ USER root
 # Get OSVVM-2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
-    git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm && \
-    cd /opt/HDL/osvvm/osvvm && \
-    git checkout 2020.05
+    git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm
 
 # Get OSVVM VerificationIP
 
