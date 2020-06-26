@@ -56,22 +56,20 @@ RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
 
 USER root
 
-# Get OSVVM-2020.05
+# Get and compile OSVVM-2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
     git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm && \
     cd /opt/HDL/osvvm/osvvm && \
-    git checkout 2020.05
+    git checkout 2020.05 && \
+    mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
+    /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm --ghdl /usr/bin
+
 
 # Compile xilinx vivado libraries
 
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
     /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin
-
-# Compile osvvm libraries
-
-RUN mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
-    /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm --ghdl /usr/bin
 
 # Create group ghdl, and add notroot user
 
