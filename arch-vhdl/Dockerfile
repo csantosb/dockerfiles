@@ -60,24 +60,24 @@ RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
 
 USER root
 
-# Get and compile OSVVM-2020.05
+# Get OSVVM-2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
     git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm && \
     cd /opt/HDL/osvvm/osvvm && \
-    git checkout 2020.05 && \
-    mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
-    /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm --ghdl /usr/bin
+    git checkout 2020.05
 
-# Get and compile OSVVM VerificationIP
+# Get OSVVM VerificationIP
 
 RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
-    git clone --recursive  https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP && \
-    cd /tmp && \
+    git clone --recursive  https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP
+
+# Compile OSVVM and its VerificationIP
+
+RUN cd /opt/HDL && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
-    cd /tmp/eda-common/ghdl/vendors && \
-    ./runme.sh && \
-    rm -rf eda-common
+    cd /opt/HDL/eda-common/ghdl/vendors && \
+    ./runme.sh
 
 # Compile xilinx vivado libraries
 
