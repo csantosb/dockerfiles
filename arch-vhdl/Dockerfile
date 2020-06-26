@@ -65,6 +65,14 @@ RUN mkdir -p /opt/HDL/osvvm/osvvm && \
     mkdir -p /opt/HDL/osvvm/CompiledLibraries/2020.05 && \
     /usr/lib/ghdl/vendors/compile-osvvm.sh --all --out /opt/HDL/osvvm/CompiledLibraries/2020.05 --src /opt/HDL/osvvm/osvvm --ghdl /usr/bin
 
+# Get and compile OSVVM VerificationIP
+
+RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
+    git clone --recursive  https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP && \
+    cd /tmp && \
+    git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
+    ./eda-common/ghdl/vendors/runme.sh && \
+    rm -rf eda-common
 
 # Compile xilinx vivado libraries
 
