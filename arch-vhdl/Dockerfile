@@ -60,6 +60,11 @@ RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
 
 USER root
 
+# Compile xilinx vivado libraries
+
+RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
+    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin
+
 # Get OSVVM-2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
@@ -76,11 +81,6 @@ RUN cd /opt/HDL && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
     cd /opt/HDL/eda-common/ghdl/vendors && \
     ./runme.sh
-
-# Compile xilinx vivado libraries
-
-RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
-    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin
 
 # Create group ghdl, and add notroot user
 
