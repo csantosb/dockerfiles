@@ -63,7 +63,7 @@ USER root
 # Compile xilinx vivado libraries
 
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
-    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin
+    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin | tee /tmp/compile_vivado.log
 
 # Get OSVVM-2020.05
 
@@ -80,7 +80,7 @@ RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
 RUN cd /opt/HDL && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
     cd /opt/HDL/eda-common/ghdl/vendors && \
-    ./runme.sh
+    ./runme.sh | tee /tmp/compile_osvvm.log
 
 # Create group ghdl, and add notroot user
 
