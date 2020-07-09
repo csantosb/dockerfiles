@@ -73,12 +73,12 @@ USER root
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
     /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin | tee /tmp/compile_vivado.log
 
-# Get OSVVM-2020.05
+# Install OSVVM: release 2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
     git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm
 
-# Get OSVVM VerificationIP
+# Install OSVVM VerificationIP: current
 
 RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
     git clone --recursive --depth=1 https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP
