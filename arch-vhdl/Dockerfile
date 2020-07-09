@@ -48,16 +48,16 @@ WORKDIR /tmp
 #     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
 #     rm -rf yay-bin
 
-# Install latest python-cocotb-git
+# Install python-cocotb: release 1.4.0
 
-RUN git clone --depth=1 https://gitlab.com/aur-packages/python-cocotb-git.git && \
-    cd python-cocotb-git && \
+RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-cocotb.git && \
+    cd python-cocotb && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     cd /tmp && \
-    tar -czvf python-cocotb-git.tar.gz python-cocotb-git && \
+    tar -czvf python-cocotb.tar.gz python-cocotb && \
     rm -rf python-cocotb-git
 
-# Install latest ghdl-gcc-git
+# Install ghdl-gcc-git: current
 
 RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
     cd ghdl-gcc-git && \
