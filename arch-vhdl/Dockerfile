@@ -55,7 +55,7 @@ RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-co
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     cd /tmp && \
     tar -czvf python-cocotb.tar.gz python-cocotb && \
-    rm -rf python-cocotb-git
+    rm -rf python-cocotb
 
 # Install ghdl-gcc-git: current
 
