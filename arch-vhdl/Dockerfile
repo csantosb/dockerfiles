@@ -3,6 +3,14 @@
 #
 #  License: GPL-3.0+
 
+# Contains:
+#
+#   cocotb:       1.4.0
+#   ghdl-gcc:     current
+#   osvvm:        2020.05
+#   osvvm-v ip:   current
+#   vivdado-libs: 2019.2
+
 # Based on latest archlinux
 FROM        archlinux
 
