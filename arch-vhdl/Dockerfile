@@ -88,7 +88,8 @@ RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
 RUN cd /opt/HDL && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
     cd /opt/HDL/eda-common/ghdl/vendors && \
-    ./runme.sh | tee /tmp/compile_osvvm.log
+    ./runme.sh | tee /tmp/compile_osvvm.log && \
+    rm -rf /opt/HDL/eda-common
 
 # Create group ghdl, and add notroot user
 
