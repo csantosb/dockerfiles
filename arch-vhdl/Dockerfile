@@ -81,7 +81,7 @@ RUN mkdir -p /opt/HDL/osvvm/osvvm && \
 # Get OSVVM VerificationIP
 
 RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
-    git clone --recursive  https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP
+    git clone --recursive --depth=1 https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP
 
 # Compile OSVVM and its VerificationIP
 
