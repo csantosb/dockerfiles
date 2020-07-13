@@ -3,8 +3,8 @@
 This dockerfile builds a custom VHDL testing environment based on a base
 [[https://hub.docker.com/_/archlinux/][archlinux image]].
 
- - It includes [[https://osvvm.org/][osvvm]], [[https://aur.archlinux.org/packages/ghdl-gcc-git/][ghdl-gcc-git]] and [[https://aur.archlinux.org/packages/python-cocotb/][python-cocotb]] packages. It adds pre compiled Vivado 2019.2
-   libraries too
+ - It includes [[https://osvvm.org/][osvvm]], [[https://aur.archlinux.org/packages/ghdl-gcc-git/][ghdl-gcc-git]], [[https://github.com/olofk/fusesoc][fusesoc]] and [[https://aur.archlinux.org/packages/python-cocotb/][python-cocotb]] packages. It adds pre compiled Vivado
+   2019.2 libraries too
 
  - It includes a (sudo powered) notroot user to work as once the image is created, which is
    necessary to install packages from the [[https://aur.archlinux.org/][AUR]]. Sudo access might be useful in case of needing to

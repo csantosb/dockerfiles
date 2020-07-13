@@ -10,8 +10,10 @@
 #   osvvm:        2020.05
 #   osvvm-v ip:   current
 #   vivdado-libs: 2019.2
+#   fusesoc:      1.11.0
 
 # Based on latest archlinux
+
 FROM        archlinux
 
 MAINTAINER  csantosb <csantosb autistici org>
@@ -23,7 +25,7 @@ ADD vivado19.2_src.tar.gz /tmp
 RUN pacman --noconfirm -Syu
 
 # add necessary packages
-RUN pacman --noconfirm -S gcc git make binutils sudo diffutils fakeroot
+RUN pacman --noconfirm -S gcc git make binutils sudo diffutils fakeroot fusesoc
 
 # makepkg cannot (and should not) be run as root, so we need to create a non root user here
 RUN useradd -m notroot
