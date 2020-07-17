@@ -1,4 +1,4 @@
-#  Dockerfile -- for a vhdl (ghdl/cocotb) setup run-time environment
+#  Dockerfile -- for a vhdl (ghdl/cocotb/osvvm/fusesoc) setup run-time environment
 #  Copyright (C) 2020  Cayetano Santos
 #
 #  License: GPL-3.0+
@@ -6,7 +6,7 @@
 # Contains:
 #
 #   cocotb:       1.4.0
-#   ghdl-gcc:     current
+#   ghdl-gcc:     nighty
 #   osvvm:        2020.05
 #   osvvm-v ip:   current
 #   vivdado-libs: 2019.2
