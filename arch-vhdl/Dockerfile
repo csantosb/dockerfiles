@@ -59,14 +59,14 @@ RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-co
     tar -czvf python-cocotb.tar.gz python-cocotb && \
     rm -rf python-cocotb
 
-# Install ghdl-gcc-git: current
+# Install ghdl-gcc-nighty
 
-RUN git clone --depth=1 https://aur.archlinux.org/ghdl-gcc-git.git && \
-    cd ghdl-gcc-git && \
-    makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
+RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-gcc-nighty.git && \
+    cd ghdl-gcc-nighty && \
+    makepkg --skippgpcheck --noconfirm --syncdeps --rmdeps --install --clean && \
     cd /tmp && \
-    tar -czvf ghdl-gcc-git.tar.gz ghdl-gcc-git && \
-    rm -rf ghdl-gcc-git
+    tar -czvf ghdl-gcc-nighty.tar.gz ghdl-gcc-nighty && \
+    rm -rf ghdl-gcc-nighty
 
 USER root
 
