@@ -22,7 +22,7 @@ MAINTAINER  csantosb <csantosb autistici org>
 ADD vivado19.2_src.tar.gz /tmp
 
 # sync repos
-RUN pacman --noconfirm -Syu
+RUN pacman --noconfirm -Syyu
 
 # add necessary packages
 RUN pacman --noconfirm -S gcc git make binutils sudo diffutils fakeroot fusesoc
