@@ -116,6 +116,14 @@ RUN pacman --noconfirm -Scc
 
 RUN rm -rf /var/cache/pacman/pkg
 
+# temporally include generic.py edalize backend here by hand, while this issue is resolved
+#
+# https://github.com/olofk/edalize/issues/181
+
+RUN pacman --noconfirm -S wget
+RUN wget https://raw.githubusercontent.com/olofk/edalize/generic_tool/edalize/generic.py && \
+    mv generic.py /usr/lib/python3.8/site-packages/edalize/.
+
 # Operate as non root user, yet sudo available
 
 USER notroot
