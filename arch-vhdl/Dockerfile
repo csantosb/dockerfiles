@@ -1,3 +1,5 @@
+# * Heading
+
 #  Dockerfile -- for a vhdl (ghdl/cocotb/osvvm/fusesoc) setup run-time environment
 #  Copyright (C) 2020  Cayetano Santos
 #
@@ -12,31 +14,40 @@
 #   vivdado-libs: 2019.2
 #   fusesoc:      1.11.0
 
-# Based on latest archlinux
+# * Based on latest archlinux
 
 FROM        archlinux
 
 MAINTAINER  csantosb <csantosb autistici org>
 
-# Include xilinx vivado 2019.2 /opt/Xilinx/Vivado/2019.2/data/vhdl/src dir
+# * Include xilinx vivado 2019.2 /opt/Xilinx/Vivado/2019.2/data/vhdl/src dir
+
 ADD vivado19.2_src.tar.gz /tmp
 
-# sync repos
+# * sync repos
+
 RUN pacman --noconfirm -Syyu
 
-# add necessary packages
+# * add necessary packages
+
 RUN pacman --noconfirm -S gcc git make binutils sudo diffutils fakeroot fusesoc
 
-# makepkg cannot (and should not) be run as root, so we need to create a non root user here
+# * makepkg cannot (and should not) be run as root, so we need to create a non root user here
+
 RUN useradd -m notroot
 
-# Allow notroot to run stuff as root (to install dependencies):
+# * Allow notroot to run stuff as root (to install dependencies):
+
 RUN echo "notroot ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/notroot
 
+# * Packagees
+
 # Continue execution as non root user to install necessary aur packages
+
 USER notroot
 
-# Get to a temporary dir
+# get to a temporary dir to donwload packages to install
+
 WORKDIR /tmp
 
 # Auto-fetch GPG keys (for checking signatures):
@@ -50,7 +61,7 @@ WORKDIR /tmp
 #     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
 #     rm -rf yay-bin
 
-# Install python-cocotb: release 1.4.0
+# ** install python-cocotb: release 1.4.0
 
 RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-cocotb.git && \
     cd python-cocotb && \
@@ -59,7 +70,7 @@ RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-co
     tar -czvf python-cocotb.tar.gz python-cocotb && \
     rm -rf python-cocotb
 
-# Install ghdl-gcc-nighty
+# ** install ghdl-gcc-nighty
 
 RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-gcc-nighty.git && \
     cd ghdl-gcc-nighty && \
@@ -68,24 +79,26 @@ RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-gcc-nighty.git && \
     tar -czvf ghdl-gcc-nighty.tar.gz ghdl-gcc-nighty && \
     rm -rf ghdl-gcc-nighty
 
+# switch to root user
+
 USER root
 
-# Compile xilinx vivado libraries
+# ** compile xilinx vivado libraries, 2019.2
 
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
     /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin | tee /tmp/compile_vivado.log
 
-# Install OSVVM: release 2020.05
+# ** download osvvm, release 2020.05
 
 RUN mkdir -p /opt/HDL/osvvm/osvvm && \
     git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm
 
-# Install OSVVM VerificationIP: current
+# ** download osvvm-VerificationIP
 
 RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
     git clone --recursive --depth=1 https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP
 
-# Compile OSVVM and its VerificationIP
+# ** compile osvvm and and osvvm-VerificationIP
 
 RUN cd /opt/HDL && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
@@ -93,22 +106,22 @@ RUN cd /opt/HDL && \
     ./runme.sh | tee /tmp/compile_osvvm.log && \
     rm -rf /opt/HDL/eda-common
 
-# Create group ghdl, and add notroot user
+# * Create group ghdl, and add notroot user
 
 RUN groupadd ghdl && \
     gpasswd -a notroot ghdl
 
-# Xilinx libraries have write access to members of the group
+# * Xilinx libraries have write access to members of the group
 
 RUN chown -R root:ghdl /opt/Xilinx/CompiledLibraries && \
     chmod -R g+w /opt/Xilinx/CompiledLibraries
 
-# Osvvm libraries have write access to members of the group
+# * Osvvm libraries have write access to members of the group
 
 RUN chown -R root:ghdl /opt/HDL/osvvm && \
     chmod -R g+w /opt/HDL/osvvm
 
-# Cleanup things as root to reduce image size
+# * Cleanup things as root to reduce image size
 
 RUN pacman --noconfirm -Rns diffutils fakeroot
 
@@ -116,15 +129,18 @@ RUN pacman --noconfirm -Scc
 
 RUN rm -rf /var/cache/pacman/pkg
 
-# temporally include generic.py edalize backend here by hand, while this issue is resolved
+# * Temporally include generic.py edalize backend here by hand
+#
+# while this issue is resolved
 #
 # https://github.com/olofk/edalize/issues/181
 
 RUN pacman --noconfirm -S wget
+
 RUN wget https://raw.githubusercontent.com/olofk/edalize/generic_tool/edalize/generic.py && \
     mv generic.py /usr/lib/python3.8/site-packages/edalize/.
 
-# Operate as non root user, yet sudo available
+# * Operate as non root user, yet sudo available
 
 USER notroot
 
