@@ -14,33 +14,38 @@
 #   vivdado-libs: 2019.2
 #   fusesoc:      1.11.0
 
-# * Based on latest archlinux
+# Based on latest archlinux
 
 FROM        archlinux
 
 MAINTAINER  csantosb <csantosb autistici org>
 
-# * Include xilinx vivado 2019.2 /opt/Xilinx/Vivado/2019.2/data/vhdl/src dir
+# * Arch related
 
-ADD vivado19.2_src.tar.gz /tmp
-
-# * sync repos
+# ** sync repos
 
 RUN pacman --noconfirm -Syyu
 
-# * add necessary packages
+# ** include necessary packages
 
 RUN pacman --noconfirm -S gcc git make binutils sudo diffutils fakeroot fusesoc
 
-# * makepkg cannot (and should not) be run as root, so we need to create a non root user here
+# ** create a non root user
+
+# makepkg cannot (and should not) be run as root, so we need to create a non root user here
 
 RUN useradd -m notroot
 
-# * Allow notroot to run stuff as root (to install dependencies):
+# allow notroot to run stuff as root (to install dependencies):
 
 RUN echo "notroot ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/notroot
 
-# * Packagees
+# create group ghdl, and add notroot user
+
+RUN groupadd ghdl && \
+    gpasswd -a notroot ghdl
+
+# * Packages
 
 # Continue execution as non root user to install necessary aur packages
 
@@ -83,7 +88,13 @@ RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-gcc-nighty.git && \
 
 USER root
 
-# ** compile xilinx vivado libraries, 2019.2
+# ** xilinx vivado libraries, 2019.2
+
+# contents of /opt/Xilinx/Vivado/2019.2/data/vhdl/src directory
+
+ADD vivado19.2_src.tar.gz /tmp
+
+# compile xilinx libraries
 
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
     /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin | tee /tmp/compile_vivado.log
@@ -106,17 +117,10 @@ RUN cd /opt/HDL && \
     ./runme.sh | tee /tmp/compile_osvvm.log && \
     rm -rf /opt/HDL/eda-common
 
-# * Create group ghdl, and add notroot user
-
-RUN groupadd ghdl && \
-    gpasswd -a notroot ghdl
-
-# * Xilinx libraries have write access to members of the group
+# ** give write access to members of the group ghdl to libraries
 
 RUN chown -R root:ghdl /opt/Xilinx/CompiledLibraries && \
     chmod -R g+w /opt/Xilinx/CompiledLibraries
-
-# * Osvvm libraries have write access to members of the group
 
 RUN chown -R root:ghdl /opt/HDL/osvvm && \
     chmod -R g+w /opt/HDL/osvvm
