@@ -7,12 +7,11 @@
 
 # Contains:
 #
-#   cocotb:       1.4.0
-#   ghdl-gcc:     nighty
-#   osvvm:        2020.05
-#   osvvm-v ip:   current
-#   vivdado-libs: 2019.2
-#   fusesoc:      1.11.0
+#   cocotb:           1.4.0
+#   ghdl-gcc:         nighty
+#   OsvvmLibraries:   current
+#   vivdado-libs:     2019.2
+#   fusesoc:          1.11.0
 
 # Based on latest archlinux
 
@@ -99,19 +98,10 @@ ADD vivado19.2_src.tar.gz /tmp
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
     /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin | tee /tmp/compile_vivado.log
 
-# ** download osvvm, release 2020.05
+# ** download and compile OsvvmLibraries
 
-RUN mkdir -p /opt/HDL/osvvm/osvvm && \
-    git clone --depth=1 --branch=2020.05 https://github.com/OSVVM/OSVVM.git /opt/HDL/osvvm/osvvm
-
-# ** download osvvm-VerificationIP
-
-RUN mkdir -p /opt/HDL/osvvm/VerificationIP && \
-    git clone --recursive --depth=1 https://github.com/OSVVM/VerificationIP.git /opt/HDL/osvvm/VerificationIP
-
-# ** compile osvvm and and osvvm-VerificationIP
-
-RUN cd /opt/HDL && \
+RUN git clone --recursive --depth=1 https://github.com/OSVVM/OsvvmLibraries.git /opt/HDL/osvvm/OsvvmLibraries && \
+    cd /opt/HDL && \
     git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
     cd /opt/HDL/eda-common/ghdl/vendors && \
     ./runme.sh | tee /tmp/compile_osvvm.log && \
