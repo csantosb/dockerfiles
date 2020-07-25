@@ -8,7 +8,7 @@
 # Contains:
 #
 #   cocotb:           1.4.0
-#   ghdl-gcc:         nighty
+#   ghdl-llvm:        nighty
 #   OsvvmLibraries:   current
 #   vivdado-libs:     2019.2
 #   fusesoc:          1.11.0
@@ -74,14 +74,15 @@ RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-co
     tar -czvf python-cocotb.tar.gz python-cocotb && \
     rm -rf python-cocotb
 
-# ** install ghdl-gcc-nighty
+# ** install ghdl-llvm-nighty
 
-RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-gcc-nighty.git && \
-    cd ghdl-gcc-nighty && \
-    makepkg --skippgpcheck --noconfirm --syncdeps --rmdeps --install --clean && \
+RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-nighty.git && \
+    cd ghdl-nighty && \
+    makepkg --skippgpcheck --noconfirm --syncdeps --rmdeps --clean && \
+    sudo pacman -U ghdl-llvm-nightly-9-x86_64.pkg.tar.zst --noconfirm && \
     cd /tmp && \
-    tar -czvf ghdl-gcc-nighty.tar.gz ghdl-gcc-nighty && \
-    rm -rf ghdl-gcc-nighty
+    tar -czvf ghdl-nighty.tar.gz ghdl-nighty && \
+    rm -rf ghdl-nighty
 
 # switch to root user
 
