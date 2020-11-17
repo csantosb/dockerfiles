@@ -14,6 +14,7 @@ RUN apk update && apk upgrade
 
 RUN apk add --no-cache                                                  \
 	py3-pip                                                         \
+	libffi-dev                                                      \
 	python3                                                         \
 	libxml2                                                         \
 	libxslt                                                         \
