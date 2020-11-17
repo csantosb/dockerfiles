@@ -13,6 +13,7 @@ ARG _VERSION
 RUN apk update && apk upgrade
 
 RUN apk add --no-cache                                                  \
+	py3-pip                                                         \
 	python3                                                         \
 	libxml2                                                         \
 	libxslt                                                         \
