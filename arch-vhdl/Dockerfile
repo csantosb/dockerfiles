@@ -23,7 +23,7 @@ MAINTAINER  csantosb <csantosb autistici org>
 
 # ** sync repos
 
-RUN pacman --noconfirm -Syyu
+RUN pacman --noconfirm -Syu
 
 # ** include necessary packages
 
