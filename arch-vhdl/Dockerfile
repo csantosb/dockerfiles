@@ -7,11 +7,11 @@
 
 # Contains:
 #
-#   cocotb:           1.4.0
+#   cocotb:           1.5.2
 #   ghdl-llvm:        nighty
 #   OsvvmLibraries:   current
 #   vivdado-libs:     2019.2
-#   fusesoc:          1.11.0
+#   fusesoc:          1.12.0
 
 # Based on latest archlinux
 
@@ -65,24 +65,28 @@ WORKDIR /tmp
 #     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
 #     rm -rf yay-bin
 
-# ** install python-cocotb: release 1.4.0
+# ** install python-cocotb: release 1.5.2
 
-RUN git clone --depth=1 --branch=1.4.0 https://gitlab.com/aur-packages/python-cocotb.git && \
+RUN git clone --depth=1 --branch=1.5.2 https://gitlab.com/aur-packages/python-cocotb.git && \
     cd python-cocotb && \
     makepkg --noconfirm --syncdeps --rmdeps --install --clean && \
     cd /tmp && \
     tar -czvf python-cocotb.tar.gz python-cocotb && \
-    rm -rf python-cocotb
+    rm -rf python-cocotb && \
+    python -c 'import cocotb; print("All OK")'
 
 # ** install ghdl-llvm-nighty
 
+# Archlinux CXXFLAGS array in /etc/makepkg.conf includes the -Werror=format-security flag, which produces an error.
+
 RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-nighty.git && \
     cd ghdl-nighty && \
-    makepkg --skippgpcheck --noconfirm --syncdeps --rmdeps --clean && \
-    sudo pacman -U ghdl-llvm-nightly-9-x86_64.pkg.tar.zst --noconfirm && \
+    makepkg CXXFLAGS="$CXXFLAGS -Wno-format-security" --skippgpcheck --noconfirm --syncdeps --rmdeps --clean && \
+    sudo pacman -U ghdl-llvm-nightly-1-x86_64.pkg.tar.zst --noconfirm && \
     cd /tmp && \
     tar -czvf ghdl-nighty.tar.gz ghdl-nighty && \
-    rm -rf ghdl-nighty
+    rm -rf ghdl-nighty && \
+    ghdl --version
 
 # switch to root user
 
@@ -97,16 +101,14 @@ ADD vivado19.2_src.tar.gz /tmp
 # compile xilinx libraries
 
 RUN mkdir -p /opt/Xilinx/CompiledLibraries && \
-    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --src /tmp/src --out /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin | tee /tmp/compile_vivado.log
+    /usr/lib/ghdl/vendors/compile-xilinx-vivado.sh --all --vhdl2008 --source /tmp/src --output /opt/Xilinx/CompiledLibraries/Vivado --ghdl /usr/bin/ghdl | tee /tmp/compile_vivado.log
 
 # ** download and compile OsvvmLibraries
 
-RUN git clone --recursive --depth=1 https://github.com/OSVVM/OsvvmLibraries.git /opt/HDL/osvvm/OsvvmLibraries && \
-    cd /opt/HDL && \
-    git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
-    cd /opt/HDL/eda-common/ghdl/vendors && \
+RUN git clone --depth=1 https://gitlab.com/ip-vhdl/eda-common.git && \
+    cd eda-common/ghdl/vendors && \
     ./runme.sh | tee /tmp/compile_osvvm.log && \
-    rm -rf /opt/HDL/eda-common
+    rm -rf eda-common
 
 # ** give write access to members of the group ghdl to libraries
 
@@ -130,10 +132,10 @@ RUN rm -rf /var/cache/pacman/pkg
 #
 # https://github.com/olofk/edalize/issues/181
 
-RUN pacman --noconfirm -S wget
+# RUN pacman --noconfirm -S wget
 
-RUN wget https://raw.githubusercontent.com/olofk/edalize/generic_tool/edalize/generic.py && \
-    mv generic.py /usr/lib/python3.8/site-packages/edalize/.
+# RUN wget https://raw.githubusercontent.com/olofk/edalize/generic_tool/edalize/generic.py && \
+#     mv generic.py /usr/lib/python3.8/site-packages/edalize/.
 
 # * Operate as non root user, yet sudo available
 
