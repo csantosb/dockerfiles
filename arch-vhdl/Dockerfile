@@ -23,6 +23,13 @@ MAINTAINER  csantosb <csantosb autistici org>
 
 # ** sync repos
 
+# TEMP-FIX for pacman issue
+# https://serverfault.com/questions/1052963/pacman-doesnt-work-in-docker-image
+RUN patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst \
+    && curl -LO "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${patched_glibc}" \
+    && bsdtar -C / -xvf "${patched_glibc}" || echo "Everything is fine."
+# TEMP-FIX for pacman issue
+
 RUN pacman --noconfirm -Syu
 
 # ** include necessary packages
