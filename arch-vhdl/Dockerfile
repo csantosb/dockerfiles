@@ -10,7 +10,7 @@
 #   cocotb:           1.5.2
 #   ghdl-llvm:        nighty
 #   OsvvmLibraries:   current
-#   vivdado-libs:     2019.2
+#   vivado-libs:      2020.2
 #   fusesoc:          1.12.0
 
 # Based on latest archlinux
@@ -99,11 +99,11 @@ RUN git clone --depth=1 https://gitlab.com/aur-packages/ghdl-nighty.git && \
 
 USER root
 
-# ** xilinx vivado libraries, 2019.2
+# ** xilinx vivado libraries, 2020.2
 
-# contents of /opt/Xilinx/Vivado/2019.2/data/vhdl/src directory
+# contents of /opt/Xilinx/Vivado/2020.2/data/vhdl/src directory
 
-ADD vivado19.2_src.tar.gz /tmp
+ADD vivado20.2_src.tar.gz /tmp
 
 # compile xilinx libraries
 
